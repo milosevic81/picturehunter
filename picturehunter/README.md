@@ -16,7 +16,8 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ## Quickfix for problems on Cataline
-https://github.com/flutter/flutter/issues/42969 
+If you get an error saying: “dart” can’t be opened because Apple cannot check it for malicious software. The only option I found to remedy this is to globally disable Gatekeeper by typing sudo spctl --master-disable
+https://medium.com/@alexandrosbaramilis/setting-up-flutter-on-macos-catalina-d023df8845ae 
 '''
-sudo xattr -d com.apple.quarantine ~/development/flutter/bin/cache/artifacts/libimobiledevice/idevice_id
+sudo spctl --master-disable
 '''
