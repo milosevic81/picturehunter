@@ -18,7 +18,7 @@ class LevelPage extends StatelessWidget {
         // horizontal, this produces 2 rows.
         crossAxisCount: 2,
         // Generate 100 widgets that display their index in the List.
-        children: Repo.allLevels()
+        children: (await Repo.allLevels())
             .map((level) => Center(
                   child: RaisedButton(
                     child: Text('Level: ${level["name"]}'),
