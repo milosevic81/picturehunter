@@ -7,11 +7,11 @@ import '../Repo.dart';
 class TaskPage extends StatelessWidget {
   static const routeName = '/task';
 
-  @override
-  Widget build(BuildContext context) {
-
-    final TaskArgs args = ModalRoute.of(context).settings.arguments;
-    final level = Repo.level(args.levelId);
+  Scaffold getScaffold(BuildContext context, AsyncSnapshot<Map> snapshot) {
+    var level = {"title": "", "questions": []};
+    if (snapshot.hasData) {
+      level = snapshot.data;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -21,17 +21,31 @@ class TaskPage extends StatelessWidget {
         child: GridView.count(
           crossAxisCount: 2,
           children: (level["questions"] as List).map((question) => Center(
-                    child: RaisedButton(
-                      child: Text('Question: ${question["id"]}'),
-                      onPressed: () {
-                        Navigator.pushNamed(context, QuestionPage.routeName,
-                            arguments: QuestionArgs(level["id"], question["id"]));
-                      },
-                    ),
-                  ))
+            child: RaisedButton(
+              child: Text('Question: ${question["id"]}'),
+              onPressed: () {
+                Navigator.pushNamed(context, QuestionPage.routeName,
+                    arguments: QuestionArgs(level["id"], question["id"]));
+              },
+            ),
+          ))
               .toList(),
         ),
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    final TaskArgs args = ModalRoute.of(context).settings.arguments;
+    final level = Repo.level(args.levelId);
+
+    return FutureBuilder<Map>(
+        future: Repo.level(args.levelId),
+        builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
+          return getScaffold(context, snapshot);
+        }
     );
   }
 }
