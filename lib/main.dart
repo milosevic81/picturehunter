@@ -5,7 +5,13 @@ import 'package:picturehunter/pages/LevelPage.dart';
 import 'package:picturehunter/pages/QuestionPage.dart';
 import 'package:picturehunter/pages/TaskPage.dart';
 
-void main() => runApp(MyApp());
+import 'Repo.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Repo.loadAsset();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
