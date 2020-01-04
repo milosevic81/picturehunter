@@ -65,3 +65,10 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }
+
+task levelAssembly(type: Exec) {
+    workingDir '../../level_assembler'
+    commandLine 'python3', 'main.py'
+}
+
+preBuild.dependsOn levelAssembly
