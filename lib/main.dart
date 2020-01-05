@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:picturehunter/pages/HomePage.dart';
 import 'package:picturehunter/pages/InfoPage.dart';
 import 'package:picturehunter/pages/LevelPage.dart';
@@ -7,10 +8,16 @@ import 'package:picturehunter/pages/TaskPage.dart';
 
 import 'Repo.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await Repo.loadAsset();
-  runApp(MyApp());
+
+  // Lock portrait orientation
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) async {
+    // Load assets
+    await Repo.loadAsset();
+    runApp(new MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {

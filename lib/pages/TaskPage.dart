@@ -18,17 +18,20 @@ class TaskPage extends StatelessWidget {
       ),
       body: Center(
         child: GridView.count(
-          crossAxisCount: 2,
+          crossAxisCount: 3,
           children: (level["questions"] as List)
               .map((question) => Center(
-                    child: FlatButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, QuestionPage.routeName,
-                              arguments:
-                                  QuestionArgs(level["id"], question["id"]));
-                        },
-                        padding: EdgeInsets.all(0.0),
-                        child: Image.asset(question["thumb"])),
+                    child: Container(
+                      margin: EdgeInsets.all(10),
+                      child: FlatButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, QuestionPage.routeName,
+                                arguments:
+                                    QuestionArgs(level["id"], question["id"]));
+                          },
+                          padding: EdgeInsets.all(0.0),
+                          child: Image.asset(question["thumb"])),
+                    ),
                   ))
               .toList(),
         ),
