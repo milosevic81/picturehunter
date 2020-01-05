@@ -108,19 +108,38 @@ def get_image(trello: TrelloApi, trello_list: Dict, trello_question: Dict,
 
 def process_image(trello_question: Dict, image_path: str):
     """
-    Currently, just spits any warnings on image
+    Currently, just spits any warnings on image~`~~~~
     """
     # Print some warning about image quality
     image = Image.open(image_path)
-    if image.width < 1000:
+
+    if image.width < 720:
         logger.warning(f"Image for questions {trello_question['name']} has too small width")
-    if image.height < 1000:
+    if image.height < 720:
         logger.warning(f"Image for questions {trello_question['name']} has too small height")
     if image.width / image.height > 2 or image.height / image.width > 2:
         logger.warning(f"Image for questions {trello_question['name']} has too narrow aspect ratio")
     # TODO: optimize images here, otherwise storage will explode
     # TODO: should we remove EXIF here too?
     return
+
+def optimize_image(trello_question: Dict, image_path: str):
+    """
+    Resize, optimize and generate thumbnail, than delete original. Returns path to new image and thumbnail
+    """
+    size = (720, 720)
+    thumb_size = (300, 300)
+    out_file = image_path.replace(".png", ".jpg")
+    out_thumb = out_file.replace(".jpg", ".thumb.jpg")
+
+    image = Image.open(image_path)
+    rgb = image.convert('RGB')
+    rgb.thumbnail(size, Image.ANTIALIAS)
+    rgb.save(out_file, optimize=True, quality=95)
+    rgb.thumbnail(thumb_size, Image.ANTIALIAS)
+    rgb.save(out_thumb, optimize=True, quality=95)
+    os.remove(image_path)
+    return out_file, out_thumb
 
 
 def populate_questions(trello: TrelloApi, trello_list: Dict, assets_dir: str, force_overwrite: bool) -> List:
@@ -152,13 +171,15 @@ def populate_questions(trello: TrelloApi, trello_list: Dict, assets_dir: str, fo
         solutions = get_solutions(trello, trello_question)
         image_path, image_filename = get_image(trello, trello_list, trello_question, assets_dir, force_overwrite)
         process_image(trello_question, image_path)
+        image_path, image_thumb = optimize_image(trello_question, image_path)
 
         questions.append({
             # ID should be "stable", it should not be incremental
             'id': hashlib.md5(normalize(trello_question['name']).encode('utf-8')).hexdigest(),
             'order': question_id + 1,
             'title': '',  # TODO: should be removed, no need for this?
-            'image': 'images/' + image_filename,
+            'image':  image_path,
+            'thumb': image_thumb,
             'solutions': solutions
         })
 
@@ -188,8 +209,8 @@ def populate_levels(trello: TrelloApi, assets_dir: str, force_overwrite: bool) -
 def main():
     parser = argparse.ArgumentParser(
         description='Level assembler - assembles levels from Trello')
-    parser.add_argument('--assets-dir', default='../assets',
-                        help='Directory to place assets. Default value is "../assets"')
+    parser.add_argument('--assets-dir', default='assets',
+                        help='Directory to place assets. Default value is "assets"')
     parser.add_argument('--trello-auth-file', default='TRELLO_AUTH',
                         help='Name of file containing auth for Trello. Default value is "TRELLO_AUTH"')
     parser.add_argument('-f', '--force-overwrite', action='store_true',
@@ -200,7 +221,7 @@ def main():
     if not args.assets_dir.endswith(os.path.sep):
         args.assets_dir = args.assets_dir + os.path.sep
     output_json_path = args.assets_dir + 'levels.json'
-    if os.path.exists(output_json_path) and not args.force_overwrite:
+    if os.path.exists("../" + output_json_path) and not args.force_overwrite:
         logger.info('File levels.json already exists, bailing out')
         return
 
@@ -215,6 +236,9 @@ def main():
         api_key = trello_auth_file.readline().strip()
         token = trello_auth_file.readline().strip()
     trello = TrelloApi(api_key, token)
+
+    # Go project root
+    os.chdir("../")
 
     output_json = populate_levels(trello, args.assets_dir, args.force_overwrite)
 

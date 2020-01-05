@@ -11,14 +11,14 @@ class LevelPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select level'),
+        title: Text('Izaberi nivo'),
       ),
       body: GridView.count(
         crossAxisCount: 2,
         children: Repo.allLevels()
             .map((level) => Center(
                   child: RaisedButton(
-                    child: Text('Level: ${level["name"]}'),
+                    child: Text('${level["name"]}'),
                     onPressed: () {
                       Navigator.pushNamed(context, TaskPage.routeName,
                           arguments: TaskArgs(level["id"]));

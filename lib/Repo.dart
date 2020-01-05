@@ -14,8 +14,8 @@ class Repo {
 
   static List allLevels() => _levels;
 
-  static Map level(int id) => _levels.firstWhere((x) => x["id"] == id);
+  static Map level(id) => _levels.firstWhere((x) => x["id"] == id);
 
-  static question(int levelId, int questionId) =>
+  static question(levelId, questionId) =>
       level(levelId)["questions"].firstWhere((x) => x["id"] == questionId);
 }
