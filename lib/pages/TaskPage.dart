@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:picturehunter/model/QuestionModel.dart';
 import 'package:picturehunter/pages/QuestionPage.dart';
 
 import '../Repo.dart';
@@ -20,20 +21,31 @@ class TaskPage extends StatelessWidget {
         child: GridView.count(
           crossAxisCount: 3,
           children: (level["questions"] as List)
-              .map((question) => Center(
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      child: FlatButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, QuestionPage.routeName,
-                                arguments:
-                                    QuestionArgs(level["id"], question["id"]));
-                          },
-                          padding: EdgeInsets.all(0.0),
-                          child: Image.asset(question["thumb"])),
-                    ),
-                  ))
+              .map((question) => buildQuestionButton(context, level, question))
               .toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget buildQuestionButton(BuildContext context, level, question) {
+    var questionState = QuestionModel.getState(question["id"]);
+    return Center(
+      child: Container(
+        margin: EdgeInsets.all(10),
+        child: Stack(
+          children: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, QuestionPage.routeName,
+                      arguments: QuestionArgs(level["id"], question["id"]));
+                },
+                padding: EdgeInsets.all(0.0),
+                child: Image.asset(question["thumb"])),
+            Visibility(
+                visible: questionState.solved,
+                child: Image.asset("assets/icons/icons8-checked-48.png")),
+          ],
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:picturehunter/model/QuestionModel.dart';
 
 import '../Repo.dart';
 
@@ -12,6 +13,7 @@ class QuestionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final QuestionArgs args = ModalRoute.of(context).settings.arguments;
     final question = Repo.question(args.levelId, args.taskId);
+    final QuestionState questionState = QuestionModel.getState(question["id"]);
 
     return Scaffold(
       appBar: AppBar(
@@ -23,9 +25,7 @@ class QuestionPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Image.asset(question["image"]),
-                TextField(
-                  controller: textController,
-                ),
+                getInput(context, questionState),
               ],
             ),
             onPressed: () {
@@ -39,9 +39,19 @@ class QuestionPage extends StatelessWidget {
           return showDialog(
             context: context,
             builder: (context) {
-              return AlertDialog(
-                content: Text(textController.text),
-              );
+              var correct =
+                  checkAnswer(question["solutions"], textController.text);
+              if (correct) {
+                questionState.setSolution(textController.text);
+                return AlertDialog(
+                  content: Image.asset("assets/icons/icons8-checked-96.png"),
+                );
+              } else {
+                questionState.incrementAttempts();
+                return AlertDialog(
+                  content: Image.asset("assets/icons/icons8-error-128.png"),
+                );
+              }
             },
           );
         },
@@ -50,6 +60,17 @@ class QuestionPage extends StatelessWidget {
       ),
     );
   }
+
+  checkAnswer(List solutions, String text) {
+    var simple = text.toLowerCase().trim();
+    return solutions.contains(simple);
+  }
+
+  getInput(context, questionState) => questionState.solved
+      ? Image.asset("assets/icons/icons8-checked-96.png")
+      : TextField(
+          controller: textController,
+        );
 }
 
 class QuestionArgs {
