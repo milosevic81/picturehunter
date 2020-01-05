@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+level_assembler/TRELLO_AUTH
 
 # IntelliJ related
 *.iml
