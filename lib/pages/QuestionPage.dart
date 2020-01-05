@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,9 +22,7 @@ class QuestionPage extends StatelessWidget {
           child: RaisedButton(
             child: Column(
               children: <Widget>[
-                CachedNetworkImage(
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    imageUrl: question["image"]),
+                Image.asset(question["image"]),
                 TextField(
                   controller: textController,
                 ),
@@ -56,8 +53,8 @@ class QuestionPage extends StatelessWidget {
 }
 
 class QuestionArgs {
-  final int levelId;
-  final int taskId;
+  final levelId;
+  final taskId;
 
   QuestionArgs(this.levelId, this.taskId);
 }

@@ -9,25 +9,26 @@ class TaskPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final TaskArgs args = ModalRoute.of(context).settings.arguments;
     final level = Repo.level(args.levelId);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(level["title"]),
+        title: Text(level["name"]),
       ),
       body: Center(
         child: GridView.count(
           crossAxisCount: 2,
-          children: (level["questions"] as List).map((question) => Center(
-                    child: RaisedButton(
-                      child: Text('Question: ${question["id"]}'),
-                      onPressed: () {
-                        Navigator.pushNamed(context, QuestionPage.routeName,
-                            arguments: QuestionArgs(level["id"], question["id"]));
-                      },
-                    ),
+          children: (level["questions"] as List)
+              .map((question) => Center(
+                    child: FlatButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, QuestionPage.routeName,
+                              arguments:
+                                  QuestionArgs(level["id"], question["id"]));
+                        },
+                        padding: EdgeInsets.all(0.0),
+                        child: Image.asset(question["thumb"])),
                   ))
               .toList(),
         ),
@@ -37,7 +38,7 @@ class TaskPage extends StatelessWidget {
 }
 
 class TaskArgs {
-  final int levelId;
+  final levelId;
 
   TaskArgs(this.levelId);
 }
