@@ -56,8 +56,18 @@
         ]
       },
       {
-        "id": "e228d2385c87cff06c42eabffd59599a",
+        "id": "3805fe56a0cfa92089e4a4f53d230108",
         "order": 6,
+        "title": "",
+        "image": "assets/images/voce-8b35b40bc03585d8e435ef8029621c47.jpg",
+        "thumb": "assets/images/voce-8b35b40bc03585d8e435ef8029621c47.thumb.jpg",
+        "solutions": [
+          "kokos"
+        ]
+      },
+      {
+        "id": "e228d2385c87cff06c42eabffd59599a",
+        "order": 7,
         "title": "",
         "image": "assets/images/voce-deb52c15f32f9b5240f84631b00aba85.jpg",
         "thumb": "assets/images/voce-deb52c15f32f9b5240f84631b00aba85.thumb.jpg",
@@ -66,8 +76,39 @@
         ]
       },
       {
+        "id": "8ef623779b8d33051f2bf1ecbb623f2b",
+        "order": 8,
+        "title": "",
+        "image": "assets/images/voce-c52b5102345e420fbff68c9febc468f9.jpg",
+        "thumb": "assets/images/voce-c52b5102345e420fbff68c9febc468f9.thumb.jpg",
+        "solutions": [
+          "dinja"
+        ]
+      },
+      {
+        "id": "51cd73a55f008e4c59510ff7c11fd1d1",
+        "order": 9,
+        "title": "",
+        "image": "assets/images/voce-84fe8c3eb24de931e0ee810a430c76b3.jpg",
+        "thumb": "assets/images/voce-84fe8c3eb24de931e0ee810a430c76b3.thumb.jpg",
+        "solutions": [
+          "kupine",
+          "kupina"
+        ]
+      },
+      {
+        "id": "3b25287a3a3f667e8b5c45c58f1dda6c",
+        "order": 10,
+        "title": "",
+        "image": "assets/images/voce-de133c599082d7900b2f72166cb2dc7c.jpg",
+        "thumb": "assets/images/voce-de133c599082d7900b2f72166cb2dc7c.thumb.jpg",
+        "solutions": [
+          "kivi"
+        ]
+      },
+      {
         "id": "754deb19a6369e14051069adc9040c0c",
-        "order": 7,
+        "order": 11,
         "title": "",
         "image": "assets/images/voce-b171c0934bcd374cffa09767a0100652.jpg",
         "thumb": "assets/images/voce-b171c0934bcd374cffa09767a0100652.thumb.jpg",
@@ -77,7 +118,7 @@
       },
       {
         "id": "77a661d939228989d8e133eb83b912fe",
-        "order": 8,
+        "order": 12,
         "title": "",
         "image": "assets/images/voce-dd71d8dc6fdd02150ee10b5dcce9051f.jpg",
         "thumb": "assets/images/voce-dd71d8dc6fdd02150ee10b5dcce9051f.thumb.jpg",
@@ -87,7 +128,7 @@
       },
       {
         "id": "449597dda542a9089600ec04291d0554",
-        "order": 9,
+        "order": 13,
         "title": "",
         "image": "assets/images/voce-09fed373349465a90ef4df23c7091169.jpg",
         "thumb": "assets/images/voce-09fed373349465a90ef4df23c7091169.thumb.jpg",
@@ -97,7 +138,7 @@
       },
       {
         "id": "c4b1d597540d3f560483baa685789f7e",
-        "order": 10,
+        "order": 14,
         "title": "",
         "image": "assets/images/voce-3aaed31190f089c4d147422f0f7da55f.jpg",
         "thumb": "assets/images/voce-3aaed31190f089c4d147422f0f7da55f.thumb.jpg",
@@ -106,15 +147,35 @@
         ]
       },
       {
+        "id": "aa00faf97d042c13a59da4d27eb32358",
+        "order": 15,
+        "title": "",
+        "image": "assets/images/voce-95f8c2da33b8930f8d6fee0d524c0817.jpg",
+        "thumb": "assets/images/voce-95f8c2da33b8930f8d6fee0d524c0817.thumb.jpg",
+        "solutions": [
+          "mango"
+        ]
+      },
+      {
         "id": "9fae27f25bfd778185a0b289e8c951d5",
-        "order": 11,
+        "order": 16,
         "title": "",
         "image": "assets/images/voce-06a0532fb712e664dba5e614040563a0.jpg",
         "thumb": "assets/images/voce-06a0532fb712e664dba5e614040563a0.thumb.jpg",
         "solutions": [
-          "japanska jabuka",
+          "kaki",
           "japanska jabucica",
-          "kaki"
+          "japanska jabuka"
+        ]
+      },
+      {
+        "id": "bd7e5721a3bc7e1f4d032df1586f69f3",
+        "order": 17,
+        "title": "",
+        "image": "assets/images/voce-b35bba0fb80021f45be0b95457359690.jpg",
+        "thumb": "assets/images/voce-b35bba0fb80021f45be0b95457359690.thumb.jpg",
+        "solutions": [
+          "marakuja"
         ]
       }
     ]
