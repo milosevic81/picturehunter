@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:picturehunter/model/LevelData.dart';
+import 'package:picturehunter/state/StateManager.dart';
 
 import '../Repo.dart';
 import 'TaskPage.dart';
@@ -24,7 +26,8 @@ class LevelPage extends StatelessWidget {
     );
   }
 
-  Widget buildLevelButton(context, level) {
+  Widget buildLevelButton(context, LevelData level) {
+    final state = StateManager.getLevelState(level.id);
     return Container(
       margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: ButtonTheme(
@@ -34,35 +37,65 @@ class LevelPage extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Text(
-                '${level["order"]}',
-                style:
-                TextStyle(color: Colors.white, fontSize: 32),
+                '${level.order}',
+                style: TextStyle(color: Colors.white, fontSize: 32),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      '${level["name"]}',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 24),
-                      textAlign: TextAlign.start,
-                    ),
-                    Text(
-                      '${"odgovori na jos 12 zadata da otkljucas"}',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18),
-                      textAlign: TextAlign.start,
-                    ),
-                  ],
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '${level.name}',
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                        textAlign: TextAlign.start,
+                      ),
+                      Visibility(
+                        visible: state.isLocked(),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                              child: Icon(
+                                Icons.lock,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
+                            Text(
+                              '${"odgovori na jos ${state.remainsToUnlock()} zadataka"}',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                              textAlign: TextAlign.start,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+              ),
+              Text(
+                '${state.solved} / ${level.questions.length}',
+                style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ],
           ),
           onPressed: () {
-            Navigator.pushNamed(context, TaskPage.routeName,
-                arguments: TaskArgs(level["id"]));
+            if (state.isLocked()) {
+              return showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Icon(Icons.lock,size: 120, color: Colors.orange,),
+                  );
+                }
+              );
+            } else {
+              Navigator.pushNamed(context, TaskPage.routeName,
+                  arguments: TaskArgs(level.id));
+            }
           },
         ),
       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:picturehunter/model/QuestionModel.dart';
+import 'package:picturehunter/model/QuestionData.dart';
+import 'package:picturehunter/state/StateManager.dart';
+import 'package:picturehunter/model/QuestionState.dart';
 
 import '../Repo.dart';
 
@@ -12,19 +14,19 @@ class QuestionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final QuestionArgs args = ModalRoute.of(context).settings.arguments;
-    final question = Repo.question(args.levelId, args.taskId);
-    final QuestionState questionState = QuestionModel.getState(question["id"]);
+    final QuestionData question = Repo.question(args.levelId, args.questionId);
+    final QuestionState questionState = StateManager.getQuestionState(args.levelId, question.id);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(question["title"]),
+        title: Text(question.title),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: RaisedButton(
             child: Column(
               children: <Widget>[
-                Image.asset(question["image"]),
+                Image.asset(question.image),
                 getInput(context, questionState),
               ],
             ),
@@ -40,14 +42,14 @@ class QuestionPage extends StatelessWidget {
             context: context,
             builder: (context) {
               var correct =
-                  checkAnswer(question["solutions"], textController.text);
+                  checkAnswer(question.solutions, textController.text);
               if (correct) {
-                questionState.setSolution(textController.text);
+                StateManager.setSolution(args.levelId, args.questionId, textController.text);
                 return AlertDialog(
                   content: Image.asset("assets/icons/icons8-checked-96.png"),
                 );
               } else {
-                questionState.incrementAttempts();
+                StateManager.incrementAttempts(args.levelId, args.questionId);
                 return AlertDialog(
                   content: Image.asset("assets/icons/icons8-error-128.png"),
                 );
@@ -75,7 +77,7 @@ class QuestionPage extends StatelessWidget {
 
 class QuestionArgs {
   final levelId;
-  final taskId;
+  final questionId;
 
-  QuestionArgs(this.levelId, this.taskId);
+  QuestionArgs(this.levelId, this.questionId);
 }

@@ -1,21 +1,30 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:picturehunter/model/LevelData.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'model/QuestionData.dart';
 
 class Repo {
+  static List<LevelData> _levels;
 
-  static List _levels;
+  static SharedPreferences prefs;
 
-  static Future<List> loadAsset() async {
-    _levels = await rootBundle
+  static Future<void> loadAsset() async {
+
+    List levelsJson = await rootBundle
         .loadString('assets/levels.json')
         .then((jsonStr) => jsonDecode(jsonStr));
+    _levels = levelsJson.map((x) => LevelData.fromJson(x)).toList();
+
+    prefs = await SharedPreferences.getInstance();
   }
 
-  static List allLevels() => _levels;
+  static List<LevelData> allLevels() => _levels;
 
-  static Map level(id) => _levels.firstWhere((x) => x["id"] == id);
+  static LevelData level(String id) => _levels.firstWhere((x) => x.id == id);
 
-  static question(levelId, questionId) =>
-      level(levelId)["questions"].firstWhere((x) => x["id"] == questionId);
+  static QuestionData question(String levelId, String questionId) =>
+      level(levelId).questions.firstWhere((x) => x.id == questionId);
 }
