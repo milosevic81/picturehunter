@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:picturehunter/model/LevelData.dart';
-import 'package:picturehunter/state/StateManager.dart';
+import 'package:picturehunter/models/LevelData.dart';
+import 'package:picturehunter/screens/question_list_screen.dart';
+import 'package:picturehunter/state/state_management.dart';
 
 import '../Repo.dart';
-import 'TaskPage.dart';
 
-class LevelPage extends StatelessWidget {
+class LevelListScreen extends StatelessWidget {
   static const routeName = '/level';
 
   @override
@@ -96,7 +96,7 @@ class LevelPage extends StatelessWidget {
                     );
                   });
             } else {
-              Navigator.pushNamed(context, TaskPage.routeName,
+              Navigator.pushNamed(context, QuestionListScreen.routeName,
                   arguments: TaskArgs(level.id));
             }
           },

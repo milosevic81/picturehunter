@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:picturehunter/model/LevelData.dart';
-import 'package:picturehunter/model/QuestionData.dart';
-import 'package:picturehunter/pages/QuestionPage.dart';
-import 'package:picturehunter/state/StateManager.dart';
+import 'package:picturehunter/models/LevelData.dart';
+import 'package:picturehunter/models/QuestionData.dart';
+import 'package:picturehunter/screens/question_screen.dart';
+import 'package:picturehunter/state/state_management.dart';
 
 import '../Repo.dart';
 
-class TaskPage extends StatelessWidget {
+class QuestionListScreen extends StatelessWidget {
   static const routeName = '/task';
 
   @override
@@ -40,7 +40,7 @@ class TaskPage extends StatelessWidget {
           children: <Widget>[
             FlatButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, QuestionPage.routeName,
+                  Navigator.pushNamed(context, QuestionScreen.routeName,
                       arguments: QuestionArgs(level.id, question.id));
                 },
                 padding: EdgeInsets.all(0.0),

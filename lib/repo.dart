@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:picturehunter/model/LevelData.dart';
+import 'package:picturehunter/models/LevelData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'model/QuestionData.dart';
+import 'models/QuestionData.dart';
 
 class Repo {
   static List<LevelData> _levels;

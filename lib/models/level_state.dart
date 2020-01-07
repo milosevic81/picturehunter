@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:picturehunter/state/StateManager.dart';
+import 'package:picturehunter/state/state_management.dart';
 
 import '../Repo.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:picturehunter/pages/HomePage.dart';
-import 'package:picturehunter/pages/InfoPage.dart';
-import 'package:picturehunter/pages/LevelPage.dart';
-import 'package:picturehunter/pages/QuestionPage.dart';
-import 'package:picturehunter/pages/TaskPage.dart';
+import 'package:picturehunter/screens/home_screen.dart';
+import 'package:picturehunter/screens/info_screen.dart';
+import 'package:picturehunter/screens/level_list_screen.dart';
+import 'package:picturehunter/screens/question_list_screen.dart';
+import 'package:picturehunter/screens/question_screen.dart';
 
 import 'Repo.dart';
 
@@ -31,11 +31,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        HomePage.routeName: (BuildContext context) => HomePage(),
-        InfoPage.routeName: (BuildContext context) => InfoPage(),
-        LevelPage.routeName: (BuildContext context) => LevelPage(),
-        TaskPage.routeName: (BuildContext context) => TaskPage(),
-        QuestionPage.routeName: (BuildContext context) => QuestionPage(),
+        HomeScreen.routeName: (BuildContext context) => HomeScreen(),
+        InfoScreen.routeName: (BuildContext context) => InfoScreen(),
+        LevelListScreen.routeName: (BuildContext context) => LevelListScreen(),
+        QuestionListScreen.routeName: (BuildContext context) => QuestionListScreen(),
+        QuestionScreen.routeName: (BuildContext context) => QuestionScreen(),
       },
 //      navigatorObservers: [
 //        FirebaseAnalyticsObserver(analytics: analytics),

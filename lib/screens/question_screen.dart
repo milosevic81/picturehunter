@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:picturehunter/model/QuestionData.dart';
-import 'package:picturehunter/model/QuestionState.dart';
-import 'package:picturehunter/state/StateManager.dart';
+import 'package:picturehunter/models/QuestionData.dart';
+import 'package:picturehunter/models/QuestionState.dart';
+import 'package:picturehunter/state/state_management.dart';
 
 import '../Repo.dart';
 
-class QuestionPage extends StatelessWidget {
+class QuestionScreen extends StatelessWidget {
   static const routeName = '/question';
 
   final textController = TextEditingController();

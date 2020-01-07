@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import '../Repo.dart';
-import '../model/LevelState.dart';
-import '../model/QuestionState.dart';
+import '../models/LevelState.dart';
+import '../models/QuestionState.dart';
 
 class StateManager {
   static Map<String, QuestionState> _questionStates = {};
