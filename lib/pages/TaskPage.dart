@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:picturehunter/model/LevelData.dart';
 import 'package:picturehunter/model/QuestionData.dart';
-import 'package:picturehunter/state/StateManager.dart';
 import 'package:picturehunter/pages/QuestionPage.dart';
+import 'package:picturehunter/state/StateManager.dart';
 
 import '../Repo.dart';
 
@@ -30,7 +30,8 @@ class TaskPage extends StatelessWidget {
     );
   }
 
-  Widget buildQuestionButton(BuildContext context, LevelData level, QuestionData question) {
+  Widget buildQuestionButton(
+      BuildContext context, LevelData level, QuestionData question) {
     var questionState = StateManager.getQuestionState(level.id, question.id);
     return Center(
       child: Container(

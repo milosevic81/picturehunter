@@ -1,6 +1,6 @@
-import 'package:picturehunter/state/StateManager.dart';
+import 'package:flutter/cupertino.dart';
 
-class QuestionState {
+class QuestionState extends ChangeNotifier {
   final String questionId;
   final String levelId;
   int attempts = 0;
@@ -16,6 +16,7 @@ class QuestionState {
   void setSolution(String text) {
     this.solved = true;
     this.solution = text;
+    notifyListeners();
   }
 
   QuestionState.fromJson(Map parsed)

@@ -85,13 +85,16 @@ class LevelPage extends StatelessWidget {
           onPressed: () {
             if (state.isLocked()) {
               return showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    content: Icon(Icons.lock,size: 120, color: Colors.orange,),
-                  );
-                }
-              );
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: Icon(
+                        Icons.lock,
+                        size: 120,
+                        color: Colors.orange,
+                      ),
+                    );
+                  });
             } else {
               Navigator.pushNamed(context, TaskPage.routeName,
                   arguments: TaskArgs(level.id));

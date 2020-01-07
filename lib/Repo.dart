@@ -12,11 +12,16 @@ class Repo {
   static SharedPreferences prefs;
 
   static Future<void> loadAsset() async {
-
     List levelsJson = await rootBundle
         .loadString('assets/levels.json')
         .then((jsonStr) => jsonDecode(jsonStr));
-    _levels = levelsJson.map((x) => LevelData.fromJson(x)).toList();
+
+    _levels = levelsJson
+        .map((x) => LevelData.fromJson(x))
+        .where((x) => x.questions.length > 0)
+        .toList();
+
+    _levels.sort((x, y) => x.order.compareTo(y.order));
 
     prefs = await SharedPreferences.getInstance();
   }

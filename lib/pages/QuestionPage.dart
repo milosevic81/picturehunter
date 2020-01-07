@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:picturehunter/model/QuestionData.dart';
-import 'package:picturehunter/state/StateManager.dart';
 import 'package:picturehunter/model/QuestionState.dart';
+import 'package:picturehunter/state/StateManager.dart';
 
 import '../Repo.dart';
 
@@ -15,7 +15,8 @@ class QuestionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final QuestionArgs args = ModalRoute.of(context).settings.arguments;
     final QuestionData question = Repo.question(args.levelId, args.questionId);
-    final QuestionState questionState = StateManager.getQuestionState(args.levelId, question.id);
+    final QuestionState questionState =
+        StateManager.getQuestionState(args.levelId, question.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -44,7 +45,8 @@ class QuestionPage extends StatelessWidget {
               var correct =
                   checkAnswer(question.solutions, textController.text);
               if (correct) {
-                StateManager.setSolution(args.levelId, args.questionId, textController.text);
+                StateManager.setSolution(
+                    args.levelId, args.questionId, textController.text);
                 return AlertDialog(
                   content: Image.asset("assets/icons/icons8-checked-96.png"),
                 );

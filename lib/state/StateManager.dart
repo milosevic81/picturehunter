@@ -5,7 +5,6 @@ import '../model/LevelState.dart';
 import '../model/QuestionState.dart';
 
 class StateManager {
-
   static Map<String, QuestionState> _questionStates = {};
   static Map<String, LevelState> _levelStates = {};
 

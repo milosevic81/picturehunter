@@ -8,11 +8,11 @@ class QuestionData {
 
   QuestionData(
       {this.id,
-        this.order,
-        this.title,
-        this.image,
-        this.thumb,
-        this.solutions});
+      this.order,
+      this.title,
+      this.image,
+      this.thumb,
+      this.solutions});
 
   QuestionData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
