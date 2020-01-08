@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:picturehunter/models/QuestionData.dart';
-import 'package:picturehunter/models/QuestionState.dart';
-import 'package:picturehunter/state/state_management.dart';
-
-import '../Repo.dart';
+import 'package:picturehunter/models/question.dart';
+import 'package:picturehunter/state/repo.dart';
 
 class QuestionScreen extends StatelessWidget {
   static const routeName = '/question';
@@ -14,9 +11,7 @@ class QuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final QuestionArgs args = ModalRoute.of(context).settings.arguments;
-    final QuestionData question = Repo.question(args.levelId, args.questionId);
-    final QuestionState questionState =
-        StateManager.getQuestionState(args.levelId, question.id);
+    final Question question = Repo.question(args.levelId, args.questionId);
 
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +23,7 @@ class QuestionScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Image.asset(question.image),
-                getInput(context, questionState),
+                getInput(context, question),
               ],
             ),
             onPressed: () {
@@ -45,13 +40,12 @@ class QuestionScreen extends StatelessWidget {
               var correct =
                   checkAnswer(question.solutions, textController.text);
               if (correct) {
-                StateManager.setSolution(
-                    args.levelId, args.questionId, textController.text);
+                Repo.setSolution(question, args.levelId, textController.text);
                 return AlertDialog(
                   content: Image.asset("assets/icons/icons8-checked-96.png"),
                 );
               } else {
-                StateManager.incrementAttempts(args.levelId, args.questionId);
+                Repo.incrementAttempts(question);
                 return AlertDialog(
                   content: Image.asset("assets/icons/icons8-error-128.png"),
                 );
@@ -70,7 +64,7 @@ class QuestionScreen extends StatelessWidget {
     return solutions.contains(simple);
   }
 
-  getInput(context, questionState) => questionState.solved
+  getInput(context, Question question) => question.state.solved
       ? Image.asset("assets/icons/icons8-checked-96.png")
       : TextField(
           controller: textController,

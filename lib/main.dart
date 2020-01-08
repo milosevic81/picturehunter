@@ -5,8 +5,7 @@ import 'package:picturehunter/screens/info_screen.dart';
 import 'package:picturehunter/screens/level_list_screen.dart';
 import 'package:picturehunter/screens/question_list_screen.dart';
 import 'package:picturehunter/screens/question_screen.dart';
-
-import 'Repo.dart';
+import 'package:picturehunter/state/repo.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

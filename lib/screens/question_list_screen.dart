@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:picturehunter/models/LevelData.dart';
-import 'package:picturehunter/models/QuestionData.dart';
+import 'package:picturehunter/models/level.dart';
+import 'package:picturehunter/models/question.dart';
 import 'package:picturehunter/screens/question_screen.dart';
-import 'package:picturehunter/state/state_management.dart';
-
-import '../Repo.dart';
+import 'package:picturehunter/state/repo.dart';
 
 class QuestionListScreen extends StatelessWidget {
   static const routeName = '/task';
@@ -13,7 +11,7 @@ class QuestionListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TaskArgs args = ModalRoute.of(context).settings.arguments;
-    final LevelData level = Repo.level(args.levelId);
+    final Level level = Repo.level(args.levelId);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,8 +29,8 @@ class QuestionListScreen extends StatelessWidget {
   }
 
   Widget buildQuestionButton(
-      BuildContext context, LevelData level, QuestionData question) {
-    var questionState = StateManager.getQuestionState(level.id, question.id);
+      BuildContext context, Level level, Question question) {
+
     return Center(
       child: Container(
         margin: EdgeInsets.all(10),
@@ -46,7 +44,7 @@ class QuestionListScreen extends StatelessWidget {
                 padding: EdgeInsets.all(0.0),
                 child: Image.asset(question.thumb)),
             Visibility(
-                visible: questionState.solved,
+                visible: question.state.solved,
                 child: Image.asset("assets/icons/icons8-checked-48.png")),
           ],
         ),
