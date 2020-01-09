@@ -1,37 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:picturehunter/model/LevelData.dart';
-import 'package:picturehunter/state/StateManager.dart';
+import 'package:picturehunter/models/level.dart';
+import 'package:picturehunter/screens/question_list_screen.dart';
 
-import '../Repo.dart';
-import 'TaskPage.dart';
+class LevelItem extends StatelessWidget {
+  final Level level;
 
-class LevelPage extends StatelessWidget {
-  static const routeName = '/level';
+  LevelItem({@required this.level});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Izaberi nivo'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-        child: ListView(
-          children: Repo.allLevels()
-              .map((level) => buildLevelButton(context, level))
-              .toList(),
-        ),
-      ),
-    );
-  }
-
-  Widget buildLevelButton(context, LevelData level) {
-    final state = StateManager.getLevelState(level.id);
     return Container(
       margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: ButtonTheme(
-        minWidth: 300,
         height: 70,
         child: RaisedButton(
           child: Row(
@@ -52,7 +33,7 @@ class LevelPage extends StatelessWidget {
                         textAlign: TextAlign.start,
                       ),
                       Visibility(
-                        visible: state.isLocked(),
+                        visible: level.state.locked,
                         child: Row(
                           children: <Widget>[
                             Padding(
@@ -64,7 +45,7 @@ class LevelPage extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '${"odgovori na jos ${state.remainsToUnlock()} zadataka"}',
+                              '${"odgovori na jos ${level.state.remainsToUnlock} zadataka"}',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
                               textAlign: TextAlign.start,
@@ -77,13 +58,13 @@ class LevelPage extends StatelessWidget {
                 ),
               ),
               Text(
-                '${state.solved} / ${level.questions.length}',
+                '${level.state.solved} / ${level.questions.length}',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ],
           ),
           onPressed: () {
-            if (state.isLocked()) {
+            if (level.state.locked) {
               return showDialog(
                   context: context,
                   builder: (context) {
@@ -96,8 +77,8 @@ class LevelPage extends StatelessWidget {
                     );
                   });
             } else {
-              Navigator.pushNamed(context, TaskPage.routeName,
-                  arguments: TaskArgs(level.id));
+              Navigator.pushNamed(context, QuestionListScreen.routeName,
+                  arguments: QuestionListScreenArgs(level.id));
             }
           },
         ),

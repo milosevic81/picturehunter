@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:picturehunter/pages/InfoPage.dart';
-import 'package:picturehunter/pages/LevelPage.dart';
 
-class HomePage extends StatelessWidget {
+import 'info_screen.dart';
+import 'level_list_screen.dart';
+
+class HomeScreen extends StatelessWidget {
   static const routeName = '/';
 
   @override
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 32),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, LevelPage.routeName);
+                    Navigator.pushNamed(context, LevelListScreen.routeName);
                   },
                 ),
               ),
@@ -42,7 +43,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 32),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, InfoPage.routeName);
+                    Navigator.pushNamed(context, InfoScreen.routeName);
                   },
                 ),
               ),

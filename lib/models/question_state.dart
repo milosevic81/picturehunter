@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
-
-class QuestionState extends ChangeNotifier {
+class QuestionState {
   final String questionId;
   final String levelId;
   int attempts = 0;
@@ -8,16 +6,6 @@ class QuestionState extends ChangeNotifier {
   String solution = "";
 
   QuestionState(this.levelId, this.questionId);
-
-  void incrementAttempts() {
-    attempts += 1;
-  }
-
-  void setSolution(String text) {
-    this.solved = true;
-    this.solution = text;
-    notifyListeners();
-  }
 
   QuestionState.fromJson(Map parsed)
       : questionId = parsed["questionId"],

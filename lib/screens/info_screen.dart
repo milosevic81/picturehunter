@@ -18,7 +18,7 @@ const bodyHtml = """
 </ol>
 """;
 
-class InfoPage extends StatelessWidget {
+class InfoScreen extends StatelessWidget {
   static const routeName = '/info';
 
   @override
