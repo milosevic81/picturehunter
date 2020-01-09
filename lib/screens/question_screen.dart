@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:picturehunter/models/level.dart';
 import 'package:picturehunter/models/question.dart';
-import 'package:picturehunter/state/repo.dart';
+import 'package:picturehunter/state/levels_model.dart';
+import 'package:provider/provider.dart';
 
 class QuestionScreen extends StatelessWidget {
   static const routeName = '/question';
@@ -11,7 +13,10 @@ class QuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final QuestionArgs args = ModalRoute.of(context).settings.arguments;
-    final Question question = Repo.question(args.levelId, args.questionId);
+    final levelsModel = Provider.of<LevelsModel>(context);
+    final Level level = levelsModel.getLevel(args.levelId);
+    final Question question =
+        levelsModel.getQuestion(args.levelId, args.questionId);
 
     return Scaffold(
       appBar: AppBar(
@@ -40,12 +45,13 @@ class QuestionScreen extends StatelessWidget {
               var correct =
                   checkAnswer(question.solutions, textController.text);
               if (correct) {
-                Repo.setSolution(question, args.levelId, textController.text);
+                levelsModel.setSolution(
+                    question, args.levelId, textController.text);
                 return AlertDialog(
                   content: Image.asset("assets/icons/icons8-checked-96.png"),
                 );
               } else {
-                Repo.incrementAttempts(question);
+                levelsModel.incrementAttempts(question);
                 return AlertDialog(
                   content: Image.asset("assets/icons/icons8-error-128.png"),
                 );
