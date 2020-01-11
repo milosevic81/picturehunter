@@ -51,24 +51,28 @@ class QuestionScreen extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: correct
-                      ? <Widget>[
-                          Image.asset("assets/icons/icons8-checked-96.png"),
-                          Text("Bravo!")
-                        ]
-                      : <Widget>[
-                          Image.asset("assets/icons/icons8-error-128.png"),
-                          Text("Nije tacno :("),
-                          Text("Pokusaj ponovo")
-                        ],
-                ),
+                content: GestureDetector(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: correct
+                          ? <Widget>[
+                              Image.asset("assets/icons/icons8-checked-96.png"),
+                              Text("Браво!")
+                            ]
+                          : <Widget>[
+                              Image.asset("assets/icons/icons8-error-128.png"),
+                              Text("Није тачно :("),
+                              Text("Покушај поново")
+                            ],
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    }),
               );
             },
           );
         },
-        tooltip: 'Check answer',
+        tooltip: 'Провери одговор',
         child: Icon(Icons.text_fields),
       ),
     );
@@ -76,11 +80,15 @@ class QuestionScreen extends StatelessWidget {
 
   getInput(context, Question question) => question.state.solved
       ? Image.asset("assets/icons/icons8-checked-96.png")
-      : TextField(
-          autofocus: true,
-          controller: textController,
-          decoration: InputDecoration(hintText: 'Unesi odgovor'),
-        );
+      : Container(
+    margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+        child: TextField(
+            autofocus: true,
+            style: TextStyle(fontSize: 24),
+            controller: textController,
+            decoration: InputDecoration(hintText: 'Унеси одговор'),
+          ),
+      );
 }
 
 class QuestionArgs {

@@ -67,9 +67,11 @@ class LevelsModel extends ChangeNotifier {
     _storeLevelState(level.state);
 
     final next = _nextLevel(level);
-    next.state.locked = _isLevelLocked(next);
-    next.state.remainsToUnlock = _remainsToUnlock(next);
-    _storeLevelState(next.state);
+    if (next != null) {
+      next.state.remainsToUnlock = _remainsToUnlock(next);
+      next.state.locked = _isLevelLocked(next);
+      _storeLevelState(next.state);
+    }
     notifyListeners();
   }
 
@@ -101,17 +103,13 @@ class LevelsModel extends ChangeNotifier {
   }
 
   static bool _isLevelLocked(Level level) {
-    final previousLevel = _previousLevel(level);
-    return previousLevel != null
-        ? previousLevel.state.solved <=
-            previousLevel.questions.length * level.requiresPct / 100
-        : false;
+    return level.state.remainsToUnlock > 0;
   }
 
   static int _remainsToUnlock(Level level) {
     final previousLevel = _previousLevel(level);
     return previousLevel != null
-        ? previousLevel.questions.length * level.requiresPct ~/ 100 -
+        ? (previousLevel.questions.length + 1) * level.requiresPct ~/ 100 -
             previousLevel.state.solved
         : 0;
   }

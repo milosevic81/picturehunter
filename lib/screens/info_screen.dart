@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 const bodyHtml = """
-<h1>Picture hunter info page</h1>
+<h1>Информације о игри</h1>
 <p>A paragraph with <strong>strong</strong> <em>emphasized</em> text.</p>
 <ol>
   <li>List item number one</li>

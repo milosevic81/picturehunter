@@ -14,7 +14,7 @@ class LevelListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Izaberi nivo'),
+        title: Text('Изабери ниво'),
       ),
       body: Stack(children: <Widget>[
         FancyBackground(),

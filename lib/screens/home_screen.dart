@@ -19,14 +19,14 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "SLIKOLOVAC",
+                "СЛИКОЛОВАЦ",
                 textScaleFactor: 3,
                 style: TextStyle(color: Colors.white),
               ),
               Container(height: 20),
-              MenuButton(text: "Pocni igru", route: LevelListScreen.routeName),
+              MenuButton(text: "ПОЧНИ ИГРУ", route: LevelListScreen.routeName),
               Container(height: 20),
-              MenuButton(text: "Informacije", route: InfoScreen.routeName),
+              MenuButton(text: "ИНФОРМАЦИЈЕ", route: InfoScreen.routeName),
             ],
           ),
         ],

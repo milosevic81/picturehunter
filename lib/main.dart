@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (_) => LevelsModel(),
         child: MaterialApp(
-          title: 'Slikolovac',
+          title: 'Сликоловац',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),

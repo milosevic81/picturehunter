@@ -45,7 +45,7 @@ class LevelItem extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '${"odgovori na jos ${level.state.remainsToUnlock} zadataka"}',
+                              '${"Реши још ${level.state.remainsToUnlock} задатака"}',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
                               textAlign: TextAlign.start,
@@ -68,13 +68,17 @@ class LevelItem extends StatelessWidget {
               return showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      content: Icon(
-                        Icons.lock,
-                        size: 120,
-                        color: Colors.orange,
-                      ),
-                    );
+                    return GestureDetector(
+                        child: AlertDialog(
+                          content: Icon(
+                            Icons.lock,
+                            size: 120,
+                            color: Colors.orange,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        });
                   });
             } else {
               Navigator.pushNamed(context, QuestionListScreen.routeName,
