@@ -19,7 +19,7 @@ class LevelItem extends StatelessWidget {
             children: <Widget>[
               Text(
                 '${level.order}',
-                style: TextStyle(color: Colors.white, fontSize: 32),
+                style: TextStyle(color: Colors.white, fontSize: 42),
               ),
               Expanded(
                 child: Container(

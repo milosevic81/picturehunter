@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:picturehunter/state/levels_model.dart';
+import 'package:picturehunter/widgets/fancy_background.dart';
 import 'package:picturehunter/widgets/level_list.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,10 @@ class LevelListScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Izaberi nivo'),
       ),
-      body: LevelList(levels: levelsModel.allLevels()),
+      body: Stack(children: <Widget>[
+        FancyBackground(),
+        LevelList(levels: levelsModel.allLevels())
+      ]),
     );
   }
 }

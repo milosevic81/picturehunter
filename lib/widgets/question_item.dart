@@ -10,18 +10,22 @@ class QuestionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        FlatButton(
-            onPressed: () {
-              Navigator.pushNamed(context, QuestionScreen.routeName,
-                  arguments: QuestionArgs(question.state.levelId, question.id));
-            },
-            child: Image.asset(question.thumb)),
-        Visibility(
-            visible: question.state.solved,
-            child: Image.asset("assets/icons/icons8-checked-48.png")),
-      ],
+    return Container(
+      margin: EdgeInsets.all(5),
+      child: Stack(
+        children: <Widget>[
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, QuestionScreen.routeName,
+                    arguments:
+                        QuestionArgs(question.state.levelId, question.id));
+              },
+              child: Image.asset(question.thumb)),
+          Visibility(
+              visible: question.state.solved,
+              child: Image.asset("assets/icons/icons8-checked-48.png")),
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:picturehunter/screens/info_screen.dart';
+import 'package:picturehunter/widgets/fancy_background.dart';
+import 'package:picturehunter/widgets/menu_button.dart';
 
-import 'info_screen.dart';
 import 'level_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,46 +12,24 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("SLIKOLOVAC", textScaleFactor: 4),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-              child: ButtonTheme(
-                minWidth: 300,
-                height: 60,
-                child: RaisedButton(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Text(
-                    'Start',
-                    style: TextStyle(color: Colors.white, fontSize: 32),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, LevelListScreen.routeName);
-                  },
-                ),
+      body: Stack(
+        children: <Widget>[
+          FancyBackground(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "SLIKOLOVAC",
+                textScaleFactor: 3,
+                style: TextStyle(color: Colors.white),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: ButtonTheme(
-                minWidth: 300,
-                height: 60,
-                child: RaisedButton(
-                  child: Text(
-                    'Info',
-                    style: TextStyle(color: Colors.white, fontSize: 32),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, InfoScreen.routeName);
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
+              Container(height: 20),
+              MenuButton(text: "Pocni igru", route: LevelListScreen.routeName),
+              Container(height: 20),
+              MenuButton(text: "Informacije", route: InfoScreen.routeName),
+            ],
+          ),
+        ],
       ),
     );
   }
