@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:picturehunter/models/level.dart';
 import 'package:picturehunter/screens/question_list_screen.dart';
+import 'package:picturehunter/util/plural_helper.dart';
 
 class LevelItem extends StatelessWidget {
   final Level level;
@@ -45,7 +46,7 @@ class LevelItem extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '${"Реши још ${level.state.remainsToUnlock} задатака"}',
+                              getSolveMoreString(level.state.remainsToUnlock),
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
                               textAlign: TextAlign.start,
@@ -88,5 +89,14 @@ class LevelItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getSolveMoreString(remainsToUnlock) {
+    switch (Plurals.getPluralForm(remainsToUnlock)) {
+      case 0: { return 'Реши још $remainsToUnlock задатак'; }
+      case 1: { return 'Реши још $remainsToUnlock задатка'; }
+      case 2: { return 'Реши још $remainsToUnlock задатака'; }
+      default: { throw new FormatException(); }
+    }
   }
 }
