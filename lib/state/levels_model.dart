@@ -103,7 +103,8 @@ class LevelsModel extends ChangeNotifier {
   }
 
   static bool _isLevelLocked(Level level) {
-    return level.state.remainsToUnlock > 0;
+    return false;
+//    return level.state.remainsToUnlock > 0;
   }
 
   static int _remainsToUnlock(Level level) {
