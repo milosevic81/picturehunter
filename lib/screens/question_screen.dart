@@ -37,12 +37,15 @@ class QuestionScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final correct =
+          final guess =
               Checker.checkAnswer(question.solutions, textController.text);
-          if (correct) {
+          if (guess == GuessType.GUESSED) {
             levelsModel.setSolution(
                 question, args.levelId, textController.text);
             Navigator.pop(context);
+          } else if (guess == GuessType.SIMILAR) {
+            // TODO: Vlado??? cemu sluzi ovo?
+            levelsModel.incrementAttempts(question);
           } else {
             levelsModel.incrementAttempts(question);
           }
@@ -54,16 +57,7 @@ class QuestionScreen extends StatelessWidget {
                 content: GestureDetector(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: correct
-                          ? <Widget>[
-                              Image.asset("assets/icons/icons8-checked-96.png"),
-                              Text("Браво!")
-                            ]
-                          : <Widget>[
-                              Image.asset("assets/icons/icons8-error-128.png"),
-                              Text("Није тачно :("),
-                              Text("Покушај поново")
-                            ],
+                      children: getPopupWidget(guess)
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -78,6 +72,28 @@ class QuestionScreen extends StatelessWidget {
     );
   }
 
+  List<Widget> getPopupWidget(GuessType guess) {
+    if (guess == GuessType.GUESSED) {
+      return <Widget>[
+        Image.asset("assets/icons/icons8-checked-96.png"),
+        Text("Браво!")
+      ];
+    } else if (guess == GuessType.SIMILAR) {
+      return <Widget>[
+        // TODO: Vlado???
+        Image.asset("assets/icons/icons8-similar-128.png"),
+        Text("Близу си"),
+        Text("Покушај поново")
+      ];
+    } else {
+      return <Widget>[
+        Image.asset("assets/icons/icons8-error-128.png"),
+        Text("Није тачно :("),
+        Text("Покушај поново")
+      ];
+    }
+  }
+
   getInput(context, Question question) => question.state.solved
       ? Image.asset("assets/icons/icons8-checked-96.png")
       : Container(
@@ -90,6 +106,8 @@ class QuestionScreen extends StatelessWidget {
           ),
       );
 }
+
+
 
 class QuestionArgs {
   final levelId;
